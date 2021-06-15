@@ -1,36 +1,21 @@
-.App {
-	text-align: center;
+.container {
+	margin: 5rem;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-
-/* .video-js {
-	margin: 3rem 0;
+.ql-container {
+	border-radius: 0 0 1rem 1rem;
+	background: #fefcfc;
+}
+.ql-snow.ql-toolbar {
+	display: block;
+	background: #eaecec;
+	border-radius: 1rem 1rem 0 0;
 }
 
-.video-js .vjs-control-bar {
-	background-color: rgb(255, 102, 0);
+.ql-editor {
+	min-height: 20em;
+	min-width: 20em;
 }
-.video-js button {
-	color: rgb(98, 0, 255);
-	opacity: 3;
-}
-
-.video-js .vjs-big-play-button {
-	top: 45%;
-	left: 45%;
-	background-color: rgb(255, 102, 0);
-	border: none;
-}
-
-.vjs-control-bar .vjs-picture-in-picture-control .vjs-icon-placeholder::before {
-	content: "\f24d";
-	font-size: 1.8em;
-	line-height: 1.67;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-} */
