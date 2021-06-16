@@ -1,36 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "./App.css";
-import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
-function App() {
-	const [value, setValue] = useState({});
-	const [html, setHtml] = useState("");
-	const ref = useRef(null);
+function Editor(props) {
+	const { setValue, post, setPost, value } = props;
 
-	const handleChange = (html, delta, source, editor) => {
+	// extracting text content and convert it to JSON
+	const handleQuill = (html, delta, source, editor) => {
 		setValue({
 			editorHtml: html,
 			delta: editor.getContents(),
 		});
-
-		if (value.delta === undefined) return;
-		else {
-			var cfg = {};
-			var converter = new QuillDeltaToHtmlConverter(value.delta.ops, cfg);
-			setHtml(converter.convert());
-
-			ref.current.innerHTML = html;
-		}
 	};
-	console.log(value.delta);
+	const handleTitle = (e) => {
+		setPost({ ...post, title: e.target.value });
+	};
 
-	useEffect(() => {
-		ref.current.innerHTML = html;
-		console.log(ref.current);
-	}, []);
-
+	// quill toolbar modules
 	const modules = {
 		toolbar: [
 			[{ header: "1" }, { header: "2" }, { font: [] }],
@@ -51,6 +37,7 @@ function App() {
 		},
 	};
 
+	// quill toolbar formats
 	const formats = [
 		"header",
 		"font",
@@ -67,24 +54,27 @@ function App() {
 		"image",
 		"video",
 	];
-
 	return (
-		<div className="container">
+		<div>
+			<input
+				type="text"
+				name="title"
+				id="title"
+				placeholder="Title..."
+				value={post.title}
+				onChange={handleTitle}
+			/>
 			<ReactQuill
 				name="editor"
 				theme="snow"
-				value={value.editorHtml}
-				onChange={handleChange}
+				value={value.editorHtml || ""}
+				onChange={handleQuill}
 				modules={modules}
 				formats={formats}
 				placeholder="Write your post here..."
 			/>
-			<div ref={ref}>
-				{/* <Interweave content={value.delta} />
-				<p>{html}</p> */}
-			</div>
 		</div>
 	);
 }
 
-export default App;
+export default Editor;
